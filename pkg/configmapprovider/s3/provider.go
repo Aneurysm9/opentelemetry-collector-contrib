@@ -16,7 +16,7 @@ import (
 	"go.opentelemetry.io/collector/config/configmapprovider"
 )
 
-type Provider struct {
+type provider struct {
 	downloader *s3manager.Downloader
 	bucket     string
 	key        string
@@ -76,7 +76,7 @@ func NewFromURL(rawURL string) (configmapprovider.Provider, error) {
 		return nil, fmt.Errorf("unable to create AWS session: %w", err)
 	}
 
-	return &Provider{
+	return &provider{
 		downloader: s3manager.NewDownloader(sess),
 		bucket:     bucket,
 		key:        key,
@@ -92,7 +92,7 @@ func bucketAndKeyFromPath(parsedURL *url.URL) (string, string, error) {
 	return splitPath[0], splitPath[1], nil
 }
 
-func (p *Provider) Retrieve(ctx context.Context, onChange func(*configmapprovider.ChangeEvent)) (configmapprovider.Retrieved, error) {
+func (p *provider) Retrieve(ctx context.Context, onChange func(*configmapprovider.ChangeEvent)) (configmapprovider.Retrieved, error) {
 	p.mu.Lock()
 	defer p.mu.Unlock()
 
@@ -117,7 +117,7 @@ func (p *Provider) Retrieve(ctx context.Context, onChange func(*configmapprovide
 	return configmapprovider.NewInMemory(bytes.NewReader(buf.Bytes())).Retrieve(ctx, onChange)
 }
 
-func (p *Provider) Shutdown(ctx context.Context) error {
+func (p *provider) Shutdown(ctx context.Context) error {
 	p.mu.Lock()
 	defer p.mu.Unlock()
 	p.closed = true
