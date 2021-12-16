@@ -42,7 +42,7 @@ func NewFromURL(rawURL string) (configmapprovider.Provider, error) {
 		versionID string
 	)
 
-	if parsedURL.Scheme == "s3" {
+	if strings.ToLower(parsedURL.Scheme) == "s3" {
 		bucket = parsedURL.Host
 		key = strings.TrimPrefix(parsedURL.Path, pathSep)
 	} else if matches := vhostBucketRE.FindStringSubmatch(parsedURL.Host); len(matches) > 0 {
