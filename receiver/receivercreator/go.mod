@@ -3,7 +3,7 @@ module github.com/open-telemetry/opentelemetry-collector-contrib/receiver/receiv
 go 1.14
 
 require (
-	github.com/antonmedv/expr v1.8.9
+	github.com/antonmedv/expr v1.10.3
 	github.com/armon/go-metrics v0.3.3 // indirect
 	github.com/census-instrumentation/opencensus-proto v0.3.0
 	github.com/gogo/googleapis v1.3.0 // indirect
@@ -15,7 +15,7 @@ require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer v0.0.0-00010101000000-000000000000
 	github.com/pelletier/go-toml v1.8.0 // indirect
 	github.com/spf13/viper v1.7.1
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.8.0
 	go.opentelemetry.io/collector v0.23.0
 	go.uber.org/zap v1.16.0
 	gopkg.in/ini.v1 v1.57.0 // indirect
